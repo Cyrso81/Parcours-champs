@@ -4,8 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parcours Champs</title>
-
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <style>
+#map {
+height: 70vh;
+}
+  </style>
 <style>
+  <header>
+<h2>🌾 Parcours Champs</h2>
+</header>
+
+<button onclick="meLocaliser()">📍 Me localiser</button>
+
+<div id="map"></div>
 body {
   font-family: Arial;
   margin: 0;
@@ -36,6 +49,35 @@ button{display:block;width:100%;padding:15px;margin:15px 0;font-size:18px;backgr
 <button>➕ Ajouter une parcelle</button>
 <button>🗺️ Voir mes parcours</button>
 </main>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
+<script>
+var map = L.map('map').setView([43.6, 1.4], 15);
+
+L.tileLayer(
+'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+{attribution:'© Esri'}
+).addTo(map);
+</script>
+  <script>
+function meLocaliser() {
+  map.locate({
+    setView: true,
+    maxZoom: 19,
+    enableHighAccuracy: true
+  });
+}
+
+map.on('locationfound', function(e) {
+  L.marker(e.latlng)
+    .addTo(map)
+    .bindPopup("📍 Vous êtes ici")
+    .openPopup();
+});
+
+map.on('locationerror', function() {
+  alert("Position GPS impossible.");
+});
+  </script>
 </body>
 </html>
