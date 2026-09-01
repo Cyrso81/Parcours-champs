@@ -70,20 +70,17 @@ function meLocaliser() {
 }
 
 map.on('locationfound', function(e) {
-  L.marker(e.latlng)
-    .addTo(map)
-    .bindPopup("📍 Vous êtes ici")
-    .openPopup();
+    positionGPS = e.latlng;
+
+    if (traceActive) {
+        pointsParcelle.push(e.latlng);
+        traceParcelle.setLatLngs(pointsParcelle);
+    }
 });
 
 map.on('locationerror', function() {
-  alert("Position GPS impossible.");
+    alert("Position GPS impossible.");
 });
-  let traceActive = false;
-let positionGPS;
-let pointsParcelle = [];
-let traceParcelle;
-
 function ajouterParcelle() {
     traceActive = true;
     pointsParcelle = [];
