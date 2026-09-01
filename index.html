@@ -29,7 +29,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
 document.getElementById("gps").onclick=function(){
  navigator.geolocation.getCurrentPosition(function(p){
   var pos=[p.coords.latitude,p.coords.longitude];
-  map.flyTo(pos,18)
+  map.flyTo(pos,17)
   L.marker(pos).addTo(map);
  });
 };
