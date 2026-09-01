@@ -81,10 +81,12 @@ map.on('locationfound', function(e) {
 map.on('locationerror', function() {
     alert("Position GPS impossible.");
 });
-function ajouterParcelle() {
-    traceActive = true;
-    pointsParcelle = [];
-
+map.locate({
+    watch: true,
+    setView: true,
+    maxZoom: 19,
+    enableHighAccuracy: true
+});
     alert("Mode tracé activé ! Déplacez-vous sur la parcelle.");
 
     if (traceParcelle) {
