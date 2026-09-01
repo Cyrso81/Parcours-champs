@@ -9,7 +9,9 @@
 <h1>🌾 Parcours Champs</h1>
   <div id="map" style="height:70vh"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <button id="gps">📍 Ma position</button>
+  <div style="padding:10px">
+<button id="gps">📍 Ma position</button>
+  </div>
   <script>
 var map=L.map('map').setView([46.6,2.4],6);
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
