@@ -21,7 +21,7 @@ button{padding:12px;margin:5px;font-size:16px}
 <script>
 let map=L.map('map').setView([46.6,2.4],6);
 setTimeout(()=>map.invalidateSize(),500);
-L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 let marker,trace,points=[],watch;
 
 function maPosition(){
