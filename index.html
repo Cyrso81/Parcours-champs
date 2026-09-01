@@ -26,12 +26,9 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
  });
 }
   <script>
-document.getElementById("gps").onclick=function(){
- navigator.geolocation.getCurrentPosition(function(p){
-  var pos=[p.coords.latitude,p.coords.longitude];
-  map.flyTo(pos,18)
-  L.marker(pos).addTo(map);
- });
+document.getElementById("trace").onclick=function(){
+ alert("Tracé activé");
+};
 };
   </script>
 </body>
