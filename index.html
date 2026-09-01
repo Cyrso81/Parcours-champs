@@ -38,7 +38,12 @@ var ligne=null;
     document.getElementById("trace").onclick=function(){
   points=[];
   ligne=null;
-  alert("Tracé activé");
+  navigator.geolocation.watchPosition(function(p){
+    var pos=[p.coords.latitude,p.coords.longitude];
+    points.push(pos);
+    if(!ligne) ligne=L.polyline(points).addTo(map);
+    else ligne.setLatLngs(points);
+  });
 };
   </script>
 </body>
