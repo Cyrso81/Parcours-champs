@@ -25,14 +25,7 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/
   L.marker(pos).addTo(map);
  });
 }
-  <script>
-    document.getElementById("gps").onclick=function(){
-  suivi=navigator.geolocation.watchPosition(function(p)
-    var pos=[p.coords.latitude,p.coords.longitude];
-    map.flyTo(pos,18);
-    L.marker(pos).addTo(map);
-  });
-};
+  <scripts>
     var points=[];
 var ligne=null;
     document.getElementById("trace").onclick=function(){
