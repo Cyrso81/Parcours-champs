@@ -79,17 +79,34 @@ map.on('locationfound', function(e) {
 map.on('locationerror', function() {
   alert("Position GPS impossible.");
 });
-    function ajouterParcelle() {
-    alert("Mode tracé activé !");
+  let traceActive = false;
+let positionGPS;
+let pointsParcelle = [];
+let traceParcelle;
+
+function ajouterParcelle() {
+    traceActive = true;
+    pointsParcelle = [];
+
+    alert("Mode tracé activé ! Déplacez-vous sur la parcelle.");
+
+    if (traceParcelle) {
+        map.removeLayer(traceParcelle);
+    }
+
+    traceParcelle = L.polyline([], {
+        weight: 4
+    }).addTo(map);
+
     map.locate({
         watch: true,
         enableHighAccuracy: true
     });
-    }
+}
 
 function voirParcours() {
-  alert("Mes parcours seront affichés ici.");
-}
+    alert("Mes parcours seront affichés ici.");
+}s
   </script>
 </body>
 </html>
