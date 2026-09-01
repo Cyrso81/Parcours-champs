@@ -2,115 +2,54 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Parcours Champs</title>
-<link rel="stylesheet"
-href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <style>
-#map {
-  height: 70vh;
-}
-
-body {
-  background: #f1f8e9;
-}
-</style>
-    text-align: center;
-}
-
-header {
-    background: #2e7d32;
-    color: white;
-    padding: 25px;
-}
-
-main {
-    padding: 20px;
-}
-
-button {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-}
-
-#map {
-    height: 70vh;
-}
+<style>
+body{margin:0;background:#f1f8e9;font-family:Arial;text-align:center}
+header{background:#2e7d32;color:white;padding:10px}
+button{padding:12px;margin:5px;font-size:16px}
+#map{height:65vh;width:100%}
 </style>
 </head>
 <body>
-
-<header>
-<h1>🌾 Parcours Champs</h1>
-<p>Application de suivi des parcelles</p>
-</header>
-
-<main>
-<h2>📍 Mes parcelles</h2>
-<p>Bienvenue dans Parcours Champs.</p>
-
-<button onclick="meLocaliser()">📍 Me localiser</button>
-<button onclick="voirParcours()">🗺️ Voir mes parcours</button>
-</main>
-  <div id="map" style="height: 500px;"></div>
+<header><h1>🌾 Parcours Champs</h1></header>
+<button onclick="maPosition()">📍 Ma position</button>
+<button onclick="demarrerTrace()">▶️ Tracer</button>
+<button onclick="arreterTrace()">⏹️ Arrêter</button>
+<div id="map"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
-var map = L.map('map').setView([43.6, 1.4], 15);
+let map=L.map('map').setView([46.6,2.4],6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+let marker,trace,points=[],watch;
 
-L.tileLayer(
-'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-{attribution:'© Esri'}
-).addTo(map);
+function maPosition(){
+ navigator.geolocation.getCurrentPosition(p=>{
+  let x=[p.coords.latitude,p.coords.longitude];
+  if(marker) marker.setLatLng(x);
+  else marker=L.marker(x).addTo(map);
+  map.setView(x,17);
+ },()=>alert("GPS non disponible"));
+}
+  function demarrerTrace(){
+ points=[];
+ if(trace) map.removeLayer(trace);
+ watch=navigator.geolocation.watchPosition(p=>{
+  let x=[p.coords.latitude,p.coords.longitude];
+  points.push(x);
+  if(!trace) trace=L.polyline(points).addTo(map);
+  else trace.setLatLngs(points);
+ });
+}
+
+function arreterTrace(){
+ if(watch) navigator.geolocation.clearWatch(watch);
+}
+  function effacerTrace(){
+ if(trace) map.removeLayer(trace);
+ trace=null;
+ points=[];
+}
 </script>
-  <script>
-function meLocaliser() {
-  map.locate({
-    setView: true,
-    maxZoom: 19,
-    enableHighAccuracy: true
-  });
-}
-
-map.on('locationfound', function(e) {
-    positionGPS = e.latlng;
-
-    if (traceActive) {
-        pointsParcelle.push(e.latlng);
-        traceParcelle.setLatLngs(pointsParcelle);
-    }
-});
-
-map.on('locationerror', function() {
-    alert("Position GPS impossible.");
-});
-map.locate({
-    watch: true,
-    setView: true,
-    maxZoom: 19,
-    enableHighAccuracy: true
-});
-    alert("Mode tracé activé ! Déplacez-vous sur la parcelle.");
-
-    if (traceParcelle) {
-        map.removeLayer(traceParcelle);
-    }
-
-    traceParcelle = L.polyline([], {
-        weight: 4
-    }).addTo(map);
-
-    map.locate({
-        watch: true,
-        enableHighAccuracy: true
-    });
-}
-
-function voirParcours() {
-    alert("Mes parcours seront affichés ici.");
-}s
-  </script>
 </body>
 </html>
