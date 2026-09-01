@@ -8,7 +8,7 @@
 <body>
 <h1>🌾 Parcours Champs</h1>
   <div style="text-align:right;padding:10px">
-  <button id="gps" style="padding:16px 28px;font-size:20px;border-radius:10px">📍 Ma position</button>
+  <button id="gps" style="padding:16px 28px;font-size:20px;border-radius:10px">📍 Ma position</button><button id="trace" style="padding:16px 28px;font-size:20px;border-radius:10px">▶️ Tracer</button>
   </div>
 <div id="map" style="height:70vh"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -32,6 +32,9 @@ document.getElementById("gps").onclick=function(){
   map.flyTo(pos,18)
   L.marker(pos).addTo(map);
  });
+};
+    document.getElementById("trace").onclick=function(){
+ alert("Tracé activé");
 };
   </script>
 </body>
