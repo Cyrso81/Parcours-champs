@@ -51,6 +51,13 @@ var ligne=null;
     suivi=null;
   }
 };
+    document.getElementById("gps").onclick=function(){
+ navigator.geolocation.getCurrentPosition(function(p){
+  var pos=[p.coords.latitude,p.coords.longitude];
+  map.flyTo(pos,18);
+  L.marker(pos).addTo(map);
+ });
+};
   </script>
 </body>
 </html>
